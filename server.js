@@ -1,3 +1,4 @@
+
 // server.js
 // where your node app starts
 
@@ -24,6 +25,21 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get("api/get/timestamp/:date_string", (req, res) => {
+  try {
+    let date;
+    if (req.params.date_string){
+      date = new Date(req.params.date_string);
+    }
+    else{
+      date = new Date();
+    }
+    res.json({"unix": date.getTime(), "utc": date.toUTCString()});
+  }
+  catch (e){
+    res.json({"error": "Invalid Date"});
+  }
+});
 
 
 // listen for requests :)
